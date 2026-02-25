@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 public class Veterinario {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
+
+    private Long id;
     private String nome;
     private String crmv;;
     private String especializacao;

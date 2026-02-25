@@ -10,9 +10,11 @@ import jakarta.persistence.Id;
 public class Dono {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
+    private Long id;
     private String nome;
     private String cpf;
     private Boolean status;
+    
     public String getNome() {
         return nome;
     }

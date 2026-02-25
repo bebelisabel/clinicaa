@@ -1,6 +1,6 @@
 package br.senai.com.clinica.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GenerationType;
@@ -11,13 +11,22 @@ import jakarta.persistence.Id;
 public class Consulta {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
-    private LocalDate data_hora;
+    private Long id;
+    private LocalDateTime Data_hora;
     private String obs_medicas;
-    public LocalDate getData_hora() {
-        return data_hora;
+    
+    
+    public Long getId() {
+        return id;
     }
-    public void setData_hora(LocalDate data_hora) {
-        this.data_hora = data_hora;
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public LocalDateTime getData_hora() {
+        return Data_hora;
+    }
+    public void setData_hora(LocalDateTime data_hora) {
+        Data_hora = data_hora;
     }
     public String getObs_medicas() {
         return obs_medicas;

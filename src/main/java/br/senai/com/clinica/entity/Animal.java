@@ -9,10 +9,11 @@ import jakarta.persistence.Id;
 public class Animal {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
+    private Long id;
     private String nome;
     private String especie;
     private String raca;
-    private int idade;
+    private Integer idade;
     private String infos_medicas;
     private Boolean status;
     private String dono;
@@ -35,10 +36,10 @@ public class Animal {
     public void setRaca(String raca) {
         this.raca = raca;
     }
-    public int getIdade() {
+    public Integer getIdade() {
         return idade;
     }
-    public void setIdade(int idade) {
+    public void setIdade(Integer idade) {
         this.idade = idade;
     }
     public String getInfos_medicas() {
