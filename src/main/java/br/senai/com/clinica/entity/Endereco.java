@@ -17,7 +17,7 @@ public class Endereco {
     private String localidade;
     private String uf;
     private String bairro;
-    private int numero;
+    private Integer numero;
     private String complemento;
     private String referencia;
     private Boolean principal;
@@ -52,10 +52,10 @@ public class Endereco {
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
-    public int getNumero() {
+    public Integer getNumero() {
         return numero;
     }
-    public void setNumero(int numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
     }
     public String getComplemento() {
@@ -70,7 +70,7 @@ public class Endereco {
     public void setReferencia(String referencia) {
         this.referencia = referencia;
     }
-    public boolean isPrincipal() {
+    public Boolean getPrincipal() {
         return principal;
     }
     public void setPrincipal(Boolean principal) {

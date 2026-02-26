@@ -41,6 +41,42 @@ public class EnderecoController {
         
         Endereco endereco = repository.findById(id).get();
 
+        if (updated.getCep() != null) {
+            endereco.setCep(updated.getCep());
+        }
+
+        if (updated.getLogradouro() != null) {
+            endereco.setLogradouro(updated.getLogradouro());
+        }
+
+        if (updated.getLocalidade() != null) {
+            endereco.setLocalidade(updated.getLocalidade());
+        }
+
+        if (updated.getUf() != null) {
+            endereco.setUf(updated.getUf());
+        }
+
+        if (updated.getBairro() != null) {
+            endereco.setBairro(updated.getBairro());
+        }
+
+        if (updated.getNumero() != null) {
+            endereco.setNumero(updated.getNumero());
+        }
+
+        if (updated.getComplemento() != null) {
+            endereco.setComplemento(updated.getComplemento());
+        }
+
+        if (updated.getReferencia() != null) {
+            endereco.setReferencia(updated.getReferencia());
+        }
+
+        if (updated.getPrincipal() != null) {
+            endereco.setPrincipal(updated.getPrincipal());
+        }
+
         return new Response(201, "Endereço não encontrado");
     }
 

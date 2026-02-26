@@ -14,8 +14,14 @@ public class Veterinario {
     private String nome;
     private String crmv;;
     private String especializacao;
-    private int jornada;
+    private Integer jornada;
     
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getNome() {
         return nome;
     }
@@ -34,12 +40,12 @@ public class Veterinario {
     public void setEspecializacao(String especializacao) {
         this.especializacao = especializacao;
     }
-    public int getJornada() {
+    public Integer getJornada() {
         return jornada;
     }
-    public void setJornada(int jornada) {
+    public void setJornada(Integer jornada) {
         this.jornada = jornada;
     }
-
+    
     
 }
