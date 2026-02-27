@@ -4,6 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Endereco {
@@ -12,14 +17,29 @@ public class Endereco {
     @GeneratedValue (strategy = GenerationType.AUTO)
     
     private Long id;
-    private String cep;
+
+    @PositiveOrZero
+    @Max(8) @Min(8) private String cep;
+
+    @NotBlank(message = "Precisa do logradouro")
     private String logradouro;
+
+    @NotBlank(message = "Precisa da localidade")
     private String localidade;
+
+    @NotBlank(message = "Precisa da uf")
     private String uf;
+
+    @NotBlank(message = "Precisa do bairro")
     private String bairro;
-    private Integer numero;
+
+    @NotNull
+    @Min(1) private Integer numero;
+
     private String complemento;
     private String referencia;
+
+    @NotNull(message = "Precisa do principal")
     private Boolean principal;
 
     public String getCep() {

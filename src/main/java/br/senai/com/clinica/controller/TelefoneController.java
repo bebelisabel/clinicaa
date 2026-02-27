@@ -15,6 +15,7 @@ import br.senai.com.clinica.entity.Telefone;
 import br.senai.com.clinica.exception.Response;
 import br.senai.com.clinica.repository.TelefoneRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/telefone")
@@ -24,7 +25,7 @@ public class TelefoneController {
     private TelefoneRepository repository;
 
     @PostMapping
-    public Response createTelefone(@RequestBody Telefone telefone) {
+    public Response createTelefone(@Valid @RequestBody Telefone telefone) {
         repository.save(telefone);
         return new Response(201, "Telefone adicionado com sucesso");
     }

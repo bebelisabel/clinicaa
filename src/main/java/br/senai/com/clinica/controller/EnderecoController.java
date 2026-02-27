@@ -15,6 +15,7 @@ import br.senai.com.clinica.exception.Response;
 import br.senai.com.clinica.repository.EnderecoRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 @Entity
 @RequestMapping("/endereco")
@@ -24,7 +25,7 @@ public class EnderecoController {
     private EnderecoRepository repository;
 
     @PostMapping
-    public Response createEndereco(@RequestBody Endereco endereco) {
+    public Response createEndereco(@Valid @RequestBody Endereco endereco) {
         repository.save(endereco);
         return new Response(201, "Dono adicionado com sucesso");
     }

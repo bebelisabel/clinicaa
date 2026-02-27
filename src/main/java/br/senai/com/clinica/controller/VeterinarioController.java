@@ -15,6 +15,7 @@ import br.senai.com.clinica.entity.Veterinario;
 import br.senai.com.clinica.exception.Response;
 import br.senai.com.clinica.repository.VeterinarioRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/veterinario")
@@ -24,7 +25,7 @@ public class VeterinarioController {
     private VeterinarioRepository repository;
 
     @PostMapping
-    public Response createTelefone(@RequestBody Veterinario veterinario) {
+    public Response createTelefone(@Valid @RequestBody Veterinario veterinario) {
         repository.save(veterinario);
         return new Response(201, "Veterinario adicionado com sucesso");
     }

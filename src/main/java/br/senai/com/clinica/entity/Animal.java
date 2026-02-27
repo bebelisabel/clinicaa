@@ -4,18 +4,34 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Animal {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotBlank(message = "O nome não pode ser nulo")
     private String nome;
+
+    @NotBlank(message = "A espécie não pode ser nula")
     private String especie;
+
+    @NotBlank(message = "A raça não pode ser nula")
     private String raca;
-    private Integer idade;
+
+    @Min(0) private Integer idade;
+
+    @NotBlank(message = "Precisa ter informações médicas")
     private String infos_medicas;
+
+    @NotNull(message = "Precisa do status")
     private Boolean status;
+
+    @NotBlank(message = "Precisa do nome do dono")
     private String dono;
     
     public String getNome() {

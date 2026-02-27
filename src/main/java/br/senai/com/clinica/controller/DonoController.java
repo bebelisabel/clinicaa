@@ -15,6 +15,7 @@ import br.senai.com.clinica.exception.Response;
 import br.senai.com.clinica.repository.DonoRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 @Entity
 @RequestMapping("/dono")
@@ -23,7 +24,7 @@ public class DonoController {
     private DonoRepository repository;
 
     @PostMapping
-    public Response createDono(@RequestBody Dono dono) {
+    public Response createDono(@Valid @RequestBody Dono dono) {
         repository.save(dono);
         return new Response(201, "Dono adicionado com sucesso");
     }

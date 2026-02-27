@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +26,7 @@ public class AnimalController {
     private AnimalRepository repository;
 
     @PostMapping
-    public Response createAnimal(@RequestBody Animal animal) {
+    public Response createAnimal(@Valid @RequestBody Animal animal) {
         repository.save(animal);
         return new Response(201, "Animal adicionado com sucesso");
     }
