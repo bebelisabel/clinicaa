@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.senai.com.clinica.entity.Dono;
 import jakarta.validation.Valid;
 import br.senai.com.clinica.exception.Response;
 import br.senai.com.clinica.repository.DonoRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import jakarta.persistence.Entity;
 
 
-@Entity
+@RestController
 @RequestMapping("/dono")
 public class DonoController {
     @Autowired
