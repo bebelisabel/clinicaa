@@ -24,7 +24,7 @@ public class DonoController {
     private DonoRepository repository;
 
     @PostMapping
-    public Response createDono(@Valid @RequestBody Dono dono) {
+    public Response createDono(@RequestBody Dono dono) {
         repository.save(dono);
         return new Response(201, "Dono adicionado com sucesso");
     }
