@@ -17,7 +17,6 @@ import br.senai.com.clinica.exception.Response;
 import br.senai.com.clinica.repository.DonoRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
-
 @RestController
 @RequestMapping("/dono")
 public class DonoController {
@@ -25,10 +24,18 @@ public class DonoController {
     private DonoRepository repository;
 
     @PostMapping
-    public Response createDono(@Valid @RequestBody Dono dono) {
-        repository.save(dono);
+    public Response createDono(@Valid @RequestBody Dono entity) {
+
+        boolean cpfJaExiste = repository.existsByCpf(entity.getCpf());
+        if (cpfJaExiste) {
+            return new Response(409, "Já existe um dono com esse cpf");
+        }
+
+        repository.save(entity);
         return new Response(201, "Dono adicionado com sucesso");
+
     }
+
     @GetMapping
     public List<Dono> getAllDonos() {
         return repository.findAll();
@@ -39,7 +46,7 @@ public class DonoController {
         if (!repository.existsById(id)) {
             return new Response(201, "Dono não encontrado");
         }
-        
+
         Dono dono = repository.findById(id).get();
 
         if (updated.getNome() != null) {
@@ -54,7 +61,7 @@ public class DonoController {
             dono.setStatus(updated.getStatus());
         }
 
-        return new Response(201, "Dono não encontrado");  
+        return new Response(201, "Dono não encontrado");
     }
 
     @DeleteMapping("/{id}")
@@ -66,6 +73,3 @@ public class DonoController {
         return new Response(204, "Dono deletado com sucesso");
     }
 }
-
-
-
