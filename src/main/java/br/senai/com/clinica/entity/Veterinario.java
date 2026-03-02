@@ -1,5 +1,6 @@
 package br.senai.com.clinica.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +21,8 @@ public class Veterinario {
     @NotBlank(message = "Precisa do nome")
     private String nome;
 
+
+    @Column (unique = true)
     @PositiveOrZero
     @Max(12) @Min(12) private String crmv;;
     private String especializacao;
