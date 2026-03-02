@@ -29,6 +29,8 @@ public class AnimalController {
     public Response createAnimal(@Valid @RequestBody Animal animal) {
         repository.save(animal);
         return new Response(201, "Animal adicionado com sucesso");
+        //esse código atualiza o sistema para adicionar um novo animal, dando o código 201, que significa 
+        //que o recurso foi criado com sucesso.
     }
 
     @GetMapping
@@ -40,6 +42,8 @@ public class AnimalController {
     public Response updateAnimal(@PathVariable Long id, @RequestBody Animal updated) {
         if(!repository.existsById(id)) {
             return new Response(201, "Animal não encontrado");
+            //esse código é para ver se o animal existe no sistema, caso não exista, o sistema traz o código 201
+            //significando que o animal não foi encontrado, caso o id não bata com o animal solicitado.
         }
     
         Animal animal = repository.findById(id).get();
@@ -75,15 +79,21 @@ public class AnimalController {
         repository.save(animal);
 
         return new Response(200, "Product atualizado com sucesso");
+        //essa parte salva as atualizações do animal, dando o código 200, que significa sucesso ou 
+        //requisição bem sucedida.
     }
 
     @DeleteMapping("/{id}")
     public Response deleteAnimal(@PathVariable Long id) {
         if (!repository.existsById(id)) {
             return new Response(404, "Animal não encontrado");
+            //essa parte é para deletar o animal, e caso você procurar o id do animal de novo, ele vai dar
+            //o código de erro 404, que significa que nada foi encontrado.
         }
         repository.deleteById(id);
         return new Response(204, "Animal deletado com sucesso");
+        //esse é para deletar o animal, dando o código de sucesso, mesmo sem ter nada sobre o animal
+        //no sistema, 204.
     }
 
 }
