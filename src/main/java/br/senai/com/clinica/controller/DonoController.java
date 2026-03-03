@@ -18,22 +18,15 @@ import br.senai.com.clinica.repository.DonoRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
-@RequestMapping("/dono")
+@RequestMapping("/donos")
 public class DonoController {
     @Autowired
     private DonoRepository repository;
 
     @PostMapping
-    public Response createDono(@Valid @RequestBody Dono entity) {
-
-        boolean cpfJaExiste = repository.existsByCpf(entity.getCpf());
-        if (cpfJaExiste) {
-            return new Response(409, "Já existe um dono com esse cpf");
-        }
-
-        repository.save(entity);
-        return new Response(201, "Dono adicionado com sucesso");
-
+    public Response cadastrarDono(@Valid @RequestBody Dono dono) {
+        repository.save(dono);
+        return new Response(201, "Dono(a) cadastrado(a) com sucesso!");
     }
 
     @GetMapping
@@ -42,34 +35,34 @@ public class DonoController {
     }
 
     @PutMapping("/{id}")
-    public Response updateDono(@PathVariable Long id, @RequestBody Dono updated) {
+    public Response atualizarDono(@PathVariable Long id, @RequestBody Dono novo) {
         if (!repository.existsById(id)) {
-            return new Response(201, "Dono não encontrado");
+            return new Response(404, "Dono(a) não encontrado(a)!");
         }
 
         Dono dono = repository.findById(id).get();
 
-        if (updated.getNome() != null) {
-            dono.setNome(updated.getNome());
+        if (novo.getNome() != null) {
+            dono.setNome(novo.getNome());
+        }
+        if (novo.getCpf() != null) {
+            dono.setCpf(novo.getNome());
+        }
+        if (novo.getStatus() != null) {
+            dono.setStatus(novo.getStatus());
         }
 
-        if (updated.getCpf() != null) {
-            dono.setCpf(updated.getCpf());
-        }
+        repository.save(dono);
 
-        if (updated.getStatus() != null) {
-            dono.setStatus(updated.getStatus());
-        }
-
-        return new Response(201, "Dono não encontrado");
+        return new Response(200, "Dono(a) atualizado(a) com sucesso!");
     }
 
     @DeleteMapping("/{id}")
-    public Response deleteDono(@PathVariable Long id) {
+    public Response deletarDono(@PathVariable Long id) {
         if (!repository.existsById(id)) {
-            return new Response(404, "Dono não encontrado");
+            return new Response(404, "Dono(a) não encontrado(a)!");
         }
         repository.deleteById(id);
-        return new Response(204, "Dono deletado com sucesso");
+        return new Response(204, "Dono(a) deletado(a) com sucesso!");
     }
 }

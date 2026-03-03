@@ -18,76 +18,69 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/endereco")
+@RequestMapping("/enderecos")
 public class EnderecoController {
-    
-    @Autowired
+      @Autowired
     private EnderecoRepository repository;
 
     @PostMapping
-    public Response createEndereco(@Valid @RequestBody Endereco endereco) {
+    public Response cadastrarEndereco(@Valid @RequestBody Endereco endereco) {
         repository.save(endereco);
-        return new Response(201, "Dono adicionado com sucesso");
+        return new Response(201, "Endereço cadastrado(a) com sucesso!");
     }
+
     @GetMapping
-    public List<Endereco> getAllDonos() {
+    public List<Endereco> getAllEnderecos(){
         return repository.findAll();
-    }
+    } 
 
     @PutMapping("/{id}")
-    public Response updateEndereco(@PathVariable Long id, @RequestBody Endereco updated) {
+    public Response atualizarEndereco(@PathVariable Long id, @RequestBody Endereco novo) {
         if (!repository.existsById(id)) {
-            return new Response(201, "Endereço não encontrado");
+            return new Response(404, "Endereço não encontrado!");
         }
-        
+   
         Endereco endereco = repository.findById(id).get();
 
-        if (updated.getCep() != null) {
-            endereco.setCep(updated.getCep());
+        if (novo.getCep() != null) {
+            endereco.setCep(novo.getCep());
+        }
+        if (novo.getLogradouro() != null) {
+            endereco.setLogradouro(novo.getLogradouro());
+        }
+        if (novo.getLocalidade() != null) {
+            endereco.setLocalidade(novo.getLocalidade());
+        }
+        if (novo.getUf() != null) {
+            endereco.setUf(novo.getUf());
+        }
+        if (novo.getBairro() != null) {
+            endereco.setBairro(novo.getBairro());
+        }
+        if (novo.getNumero() != null) {
+            endereco.setNumero(novo.getNumero());
+        }
+        if (novo.getComplemento() != null) {
+            endereco.setComplemento(novo.getComplemento());
+        }
+        if (novo.getReferencia() != null) {
+            endereco.setReferencia(novo.getReferencia());
+        }
+        if (novo.getPrincipal() != null) {
+            endereco.setPrincipal(novo.getPrincipal());
         }
 
-        if (updated.getLogradouro() != null) {
-            endereco.setLogradouro(updated.getLogradouro());
-        }
+        repository.save(endereco);
 
-        if (updated.getLocalidade() != null) {
-            endereco.setLocalidade(updated.getLocalidade());
-        }
-
-        if (updated.getUf() != null) {
-            endereco.setUf(updated.getUf());
-        }
-
-        if (updated.getBairro() != null) {
-            endereco.setBairro(updated.getBairro());
-        }
-
-        if (updated.getNumero() != null) {
-            endereco.setNumero(updated.getNumero());
-        }
-
-        if (updated.getComplemento() != null) {
-            endereco.setComplemento(updated.getComplemento());
-        }
-
-        if (updated.getReferencia() != null) {
-            endereco.setReferencia(updated.getReferencia());
-        }
-
-        if (updated.getPrincipal() != null) {
-            endereco.setPrincipal(updated.getPrincipal());
-        }
-
-        return new Response(201, "Endereço não encontrado");
+        return new Response(200, "Endereço atualizado com sucesso!");
     }
 
     @DeleteMapping("/{id}")
-    public Response deleteEndereco(@PathVariable Long id) {
+    public Response deletarEndereco(@PathVariable Long id) {
         if (!repository.existsById(id)) {
-            return new Response(404, "Endereço não encontrado");
+            return new Response(404, "Endereço não encontrado!");
         }
         repository.deleteById(id);
-        return new Response(204, "Endereço deletado com sucesso");
+        return new Response(204, "Endereço deletado com sucesso!");
     }
-
 }

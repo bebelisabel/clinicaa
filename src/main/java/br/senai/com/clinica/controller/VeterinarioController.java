@@ -18,22 +18,15 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/veterinario")
+@RequestMapping("/veterinarios")
 public class VeterinarioController {
-    
-    @Autowired
+      @Autowired
     private VeterinarioRepository repository;
 
     @PostMapping
-    public Response createTelefone(@Valid @RequestBody Veterinario entity) {
-
-        boolean CrmvJaExiste = repository.existsByCrmv(entity.getCrmv());
-        if(CrmvJaExiste){
-            return new Response(409, "Já existe um veterinário com esse crmv");
-        }
-
-        repository.save(entity);
-        return new Response(201, "Veterinario adicionado com sucesso");
+    public Response cadastrarVeterinario(@Valid @org.springframework.web.bind.annotation.RequestBody Veterinario veterinario) {
+        repository.save(veterinario);
+        return new Response(201, "Veterinario(a) cadastrado(a) com sucesso!");
     }
 
     @GetMapping
@@ -42,41 +35,39 @@ public class VeterinarioController {
     }
 
     @PutMapping("/{id}")
-    public Response updateVeterinario(@PathVariable Long id, @RequestBody Veterinario updated) {
+    public Response atualizarVeterinario(@PathVariable Long id, @RequestBody Veterinario novo) {
         if (!repository.existsById(id)) {
-            return new Response(201, "Veterinario não encontrado");
+            return new Response(404, "Veterinario(a) não encontrado(a)!");
         }
 
-        Veterinario veterinario = repository.findById(id).get();
+        Veterinario veterinario= repository.findById(id).get();
 
-        if (updated.getNome() != null) {
-            veterinario.setNome(updated.getNome());
+        if (novo.getNome() != null) {
+            veterinario.setNome(novo.getNome());
+        }
+        if (novo.getCrmv() != null) {
+            veterinario.setCrmv(novo.getCrmv());
+        }
+        if (novo.getEspecializacao() != null) {
+            veterinario.setEspecializacao(novo.getEspecializacao());
+        }
+        if (novo.getJornada() != null) {
+            veterinario.setJornada(novo.getJornada());
         }
 
-        if (updated.getCrmv() != null) {
-            veterinario.setCrmv(updated.getCrmv());
-        }
+        repository.save(veterinario);
 
-        if (updated.getJornada() != null) {
-            veterinario.setJornada(updated.getJornada());
-
-        if (updated.getEspecializacao() != null) {
-            veterinario.setEspecializacao(updated.getEspecializacao());
-        }
-    } 
-        return new Response(201, "Telefone não encontrado");
+        return new Response(200, "Veterinario(a) atualizado(a) com sucesso!");
     }
 
     @DeleteMapping("/{id}")
-    public Response deleteTelefone(@PathVariable Long id) {
+    public Response deletarVeterinario(@PathVariable Long id) {
         if (!repository.existsById(id)) {
-            return new Response(404, "Telefone não encontrado");
+            return new Response(404, "Veterinario(a) não encontrado(a)!");
         }
         repository.deleteById(id);
-        return new Response(204, "Telefone deletado com sucesso");
-
+        return new Response(204, "Veterinario(a) deletado(a) com sucesso!");
     }
-    
 }
 
 

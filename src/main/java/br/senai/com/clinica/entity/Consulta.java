@@ -1,45 +1,46 @@
 package br.senai.com.clinica.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Consulta {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @FutureOrPresent
-    private LocalDateTime Data_hora;
-
-    @NotBlank(message = "Precisa das informações feitas na consulta")
-    private String obs_medicas;
     
-    
+    @NotNull(message = "É necessário informar a data e a hora da consulta! (ex.: 2026/02/10 11:00:00)") 
+    private LocalDateTime data_hora;
+
+    @OneToMany(mappedBy = "consulta")
+    private List<VeterinarioConsulta> veterinarioConsultas;
+
+    public Consulta(Long id, LocalDateTime data_hora) {
+        this.id = id;
+        this.data_hora = data_hora;
+    }
+
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public LocalDateTime getData_hora() {
-        return Data_hora;
-    }
-    public void setData_hora(LocalDateTime data_hora) {
-        Data_hora = data_hora;
-    }
-    public String getObs_medicas() {
-        return obs_medicas;
-    }
-    public void setObs_medicas(String obs_medicas) {
-        this.obs_medicas = obs_medicas;
+        return data_hora;
     }
 
-    
+    public void setData_hora(LocalDateTime data_hora) {
+        this.data_hora = data_hora;
+    }
+
 }

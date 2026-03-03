@@ -64,8 +64,8 @@ public class AnimalController {
             animal.setIdade(updated.getIdade());
         }
 
-        if (updated.getInfos_medicas() != null) {
-            animal.setInfos_medicas(updated.getInfos_medicas());
+        if (updated.getInfosMedicas() != null) {
+            animal.setInfosMedicas(updated.getInfosMedicas());
         }
 
         if (updated.getStatus() != null) {

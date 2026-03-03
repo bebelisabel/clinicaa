@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import br.senai.com.clinica.entity.Telefone;
 import br.senai.com.clinica.exception.Response;
 import br.senai.com.clinica.repository.TelefoneRepository;
@@ -18,16 +19,15 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/telefone")
-public class TelefoneController {
-
+@RequestMapping("/telefones")
+public class TelefoneControler {
     @Autowired
     private TelefoneRepository repository;
 
     @PostMapping
-    public Response createTelefone(@Valid @RequestBody Telefone telefone) {
+    public Response cadastrarTelefone(@Valid @RequestBody Telefone telefone) {
         repository.save(telefone);
-        return new Response(201, "Telefone adicionado com sucesso");
+        return new Response(201, "Telefone cadastrado com sucesso!");
     }
 
     @GetMapping
@@ -36,29 +36,28 @@ public class TelefoneController {
     }
 
     @PutMapping("/{id}")
-    public Response updateTelefone(@PathVariable Long id, @RequestBody Telefone updated) {
+    public Response atualizarTelefone(@PathVariable Long id, @RequestBody Telefone novo) {
         if (!repository.existsById(id)) {
-            return new Response(201, "Telefone não encontrado");
+            return new Response(404, "Telefone não encontrado!");
         }
 
         Telefone telefone = repository.findById(id).get();
 
-        if (updated.getNumero() != null) {
-            telefone.setNumero(updated.getNumero());
-
+        if (novo.getNumero() != null) {
+            telefone.setNumero(novo.getNumero());
         }
 
-        return new Response(201, "Telefone não encontrado");
+        repository.save(telefone);
+
+        return new Response(200, "Telefone atualizado com sucesso!");
     }
 
     @DeleteMapping("/{id}")
-    public Response deleteTelefone(@PathVariable Long id) {
+    public Response deletarTelefone(@PathVariable Long id) {
         if (!repository.existsById(id)) {
-            return new Response(404, "Telefone não encontrado");
+            return new Response(404, "Telefone não encontrado!");
         }
         repository.deleteById(id);
-        return new Response(204, "Telefone deletado com sucesso");
-
+        return new Response(204, "Telefone deletado com sucesso!");
     }
-
 }
