@@ -29,8 +29,7 @@ public class AnimalController {
     public Response createAnimal(@Valid @RequestBody Animal animal) {
         repository.save(animal);
         return new Response(201, "Animal adicionado com sucesso");
-        //esse código atualiza o sistema para adicionar um novo animal, dando o código 201, que significa 
-        //que o recurso foi criado com sucesso.
+        //o pedido foi cumprido e resultou em um novo recurso que está sendo criado
     }
 
     @GetMapping

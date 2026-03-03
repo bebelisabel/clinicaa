@@ -20,12 +20,15 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/veterinarios")
 public class VeterinarioController {
-      @Autowired
+    @Autowired
     private VeterinarioRepository repository;
 
     @PostMapping
     public Response cadastrarVeterinario(@Valid @org.springframework.web.bind.annotation.RequestBody Veterinario veterinario) {
         repository.save(veterinario);
+        if (!repository.existsById(null)) {
+            return new Response(404, "Veterinario não encontrado!");
+        }
         return new Response(201, "Veterinario(a) cadastrado(a) com sucesso!");
     }
 
