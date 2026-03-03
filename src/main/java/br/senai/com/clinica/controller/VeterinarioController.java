@@ -25,10 +25,11 @@ public class VeterinarioController {
 
     @PostMapping
     public Response cadastrarVeterinario(@Valid @org.springframework.web.bind.annotation.RequestBody Veterinario veterinario) {
-        repository.save(veterinario);
-        if (!repository.existsById(null)) {
-            return new Response(404, "Veterinario não encontrado!");
+        if (!repository.existsByCrmv(veterinario.getCrmv())) {
+            return new Response(409, "Veterinario não encontrado!");
         }
+        repository.save(veterinario);
+
         return new Response(201, "Veterinario(a) cadastrado(a) com sucesso!");
     }
 

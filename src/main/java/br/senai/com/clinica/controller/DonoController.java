@@ -25,10 +25,11 @@ public class DonoController {
 
     @PostMapping
     public Response cadastrarDono(@Valid @RequestBody Dono dono) {
-        repository.save(dono);
-        if (!repository.existsById(null)) {
+        if (!repository.existsByCpf(dono.getCpf())) {
             return new Response(404, "Telefone não encontrado!");
         }
+        repository.save(dono);
+
         return new Response(201, "Dono(a) cadastrado(a) com sucesso!");
     }
 
