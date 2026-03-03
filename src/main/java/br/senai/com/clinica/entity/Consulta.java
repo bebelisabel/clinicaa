@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 
@@ -15,7 +17,11 @@ public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "fk_animal")
+    private Animal animal;
+
     @NotNull(message = "É necessário informar a data e a hora da consulta! (ex.: 2026/02/10 11:00:00)") 
     private LocalDateTime data_hora;
 
